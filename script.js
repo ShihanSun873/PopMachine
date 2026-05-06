@@ -24,7 +24,6 @@ const slogans = [
 ];
 
 imageInput.addEventListener("change", function () {
-
   const file = imageInput.files[0];
 
   if (!file) return;
@@ -36,21 +35,15 @@ imageInput.addEventListener("change", function () {
   };
 
   reader.readAsDataURL(file);
-
 });
 
 generateBtn.addEventListener("click", function () {
-
   createPopCard();
-
 });
 
 massBtn.addEventListener("click", function () {
-
-  for (let i = 0; i < 40; i++) {
-
+  for (let i = 0; i < 16; i++) {
     createPopCard(true);
-
   }
 
   createPopups();
@@ -58,15 +51,11 @@ massBtn.addEventListener("click", function () {
   document.body.classList.add("glitch");
 
   setTimeout(function () {
-
     document.body.classList.remove("glitch");
-
   }, 1200);
-
 });
 
 resetBtn.addEventListener("click", function () {
-
   posterArea.innerHTML = `
     <div class="empty-message">
       Upload yourself. Become a product.
@@ -74,31 +63,20 @@ resetBtn.addEventListener("click", function () {
   `;
 
   popupContainer.innerHTML = "";
-
   productCount = 0;
-
 });
 
 function createPopCard(randomMode = false) {
-
-  const userName =
-    nameInput.value || "UNKNOWN PRODUCT";
-
-  const userSlogan =
-    sloganInput.value || "Limited Edition Human";
+  const userName = nameInput.value || "UNKNOWN PRODUCT";
+  const userSlogan = sloganInput.value || "Limited Edition Human";
 
   if (!uploadedImage) {
-
     alert("Please upload an image first.");
-
     return;
-
   }
 
   if (productCount === 0) {
-
     posterArea.innerHTML = "";
-
   }
 
   productCount++;
@@ -106,11 +84,6 @@ function createPopCard(randomMode = false) {
   const card = document.createElement("div");
 
   card.classList.add("pop-card");
-
-  const randomColor =
-    Math.floor(Math.random() * 5) + 1;
-
-  card.classList.add(`color-${randomColor}`);
 
   const stampText = randomMode
     ? slogans[Math.floor(Math.random() * slogans.length)]
@@ -120,11 +93,30 @@ function createPopCard(randomMode = false) {
     ? `$${Math.floor(Math.random() * 900 + 99)}.99`
     : "$999.99";
 
+  const p1 = Math.floor(Math.random() * 6) + 1;
+  const p2 = Math.floor(Math.random() * 6) + 1;
+  const p3 = Math.floor(Math.random() * 6) + 1;
+  const p4 = Math.floor(Math.random() * 6) + 1;
+
   card.innerHTML = `
     <div class="stamp">${stampText}</div>
 
-    <div class="image-wrap">
-      <img src="${uploadedImage}" alt="Uploaded image">
+    <div class="warhol-grid">
+      <div class="warhol-cell palette-${p1}">
+        <img src="${uploadedImage}" alt="Uploaded image">
+      </div>
+
+      <div class="warhol-cell palette-${p2}">
+        <img src="${uploadedImage}" alt="Uploaded image">
+      </div>
+
+      <div class="warhol-cell palette-${p3}">
+        <img src="${uploadedImage}" alt="Uploaded image">
+      </div>
+
+      <div class="warhol-cell palette-${p4}">
+        <img src="${uploadedImage}" alt="Uploaded image">
+      </div>
     </div>
 
     <h3>${userName}</h3>
@@ -137,11 +129,9 @@ function createPopCard(randomMode = false) {
   `;
 
   posterArea.appendChild(card);
-
 }
 
 function createPopups() {
-
   const popupWords = [
     "BUY",
     "LIKE",
@@ -154,7 +144,6 @@ function createPopups() {
   ];
 
   for (let i = 0; i < 8; i++) {
-
     const popup = document.createElement("div");
 
     popup.classList.add("popup");
@@ -162,56 +151,34 @@ function createPopups() {
     popup.textContent =
       popupWords[Math.floor(Math.random() * popupWords.length)];
 
-    popup.style.left =
-      Math.random() * 75 + "vw";
-
-    popup.style.top =
-      Math.random() * 75 + "vh";
+    popup.style.left = Math.random() * 75 + "vw";
+    popup.style.top = Math.random() * 75 + "vh";
 
     popupContainer.appendChild(popup);
 
     setTimeout(function () {
-
       popup.remove();
-
     }, 2500);
-
   }
-
 }
 
-/* PAGE BECOMES OVERLOADED */
-
 setInterval(function () {
-
-  if (productCount > 8) {
-
+  if (productCount > 6) {
     createPopups();
-
   }
 
-  if (productCount > 15) {
+  if (productCount > 12) {
+    const cards = document.querySelectorAll(".pop-card");
 
-    const cards =
-      document.querySelectorAll(".pop-card");
-
-    cards.forEach(function(card) {
-
+    cards.forEach(function (card) {
       if (Math.random() > 0.7) {
-
         card.style.transform =
-          `rotate(${Math.random() * 10 - 5}deg)`;
-
+          `rotate(${Math.random() * 8 - 4}deg)`;
       }
-
     });
-
   }
 
-  if (productCount > 40) {
-
+  if (productCount > 30) {
     document.body.classList.add("glitch");
-
   }
-
 }, 1500);
