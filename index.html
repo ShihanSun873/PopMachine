@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POP MACHINE</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header>
+    <h1>POP MACHINE</h1>
+    <p>Insert yourself into mass culture.</p>
+  </header>
+
+  <main>
+    <section class="control-panel">
+      <h2>Create Your Product</h2>
+
+      <label>Your Name</label>
+      <input id="nameInput" type="text" placeholder="Type your name" />
+
+      <label>Your Slogan</label>
+      <input id="sloganInput" type="text" placeholder="Example: Limited Edition Human" />
+
+      <label>Upload Image</label>
+      <input id="imageInput" type="file" accept="image/*" />
+
+      <button id="generateBtn">GENERATE</button>
+      <button id="massBtn">MASS PRODUCE</button>
+      <button id="resetBtn">RESET</button>
+    </section>
+
+    <section class="poster-area" id="posterArea">
+      <div class="empty-message">
+        Upload yourself. Become a product.
+      </div>
+    </section>
+  </main>
+
+  <div id="popupContainer"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
