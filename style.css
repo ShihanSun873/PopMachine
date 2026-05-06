@@ -7,6 +7,7 @@ body {
   font-family: Arial Black, Impact, Helvetica, sans-serif;
   background: #f8e71c;
   color: #111;
+  overflow-x: hidden;
 }
 
 header {
@@ -75,6 +76,7 @@ button {
   font-size: 16px;
   cursor: pointer;
   box-shadow: 5px 5px #111;
+  transition: 0.15s;
 }
 
 button:hover {
@@ -112,7 +114,6 @@ button:hover {
 
 .pop-card {
   position: relative;
-  background: white;
   border: 6px solid #111;
   padding: 15px;
   min-height: 330px;
@@ -121,18 +122,72 @@ button:hover {
   animation: popIn 0.25s ease-out;
 }
 
-.pop-card img {
+/* POP ART IMAGE STYLE */
+
+.image-wrap {
+  position: relative;
   width: 100%;
   height: 170px;
-  object-fit: cover;
   border: 5px solid #111;
-  filter: contrast(160%) saturate(180%);
+  overflow: hidden;
+  background: white;
+}
+
+.image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  filter:
+    contrast(190%)
+    saturate(240%)
+    brightness(110%);
+}
+
+/* Ben-Day dots */
+
+.image-wrap::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    radial-gradient(#111 18%, transparent 20%);
+
+  background-size: 8px 8px;
+
+  mix-blend-mode: multiply;
+
+  opacity: 0.45;
+
+  pointer-events: none;
+}
+
+/* CMYK fake print effect */
+
+.image-wrap::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      rgba(255, 0, 255, 0.15),
+      rgba(0, 255, 255, 0.15)
+    );
+
+  mix-blend-mode: screen;
+
+  pointer-events: none;
 }
 
 .pop-card h3 {
   font-size: 26px;
   margin: 12px 0 5px;
   text-transform: uppercase;
+  line-height: 1;
 }
 
 .pop-card p {
@@ -153,13 +208,16 @@ button:hover {
 .barcode {
   margin-top: 12px;
   height: 40px;
-  background: repeating-linear-gradient(
-    90deg,
-    #111 0px,
-    #111 3px,
-    white 3px,
-    white 6px
-  );
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #111 0px,
+      #111 3px,
+      white 3px,
+      white 6px
+    );
+
   border: 3px solid #111;
 }
 
@@ -167,11 +225,16 @@ button:hover {
   position: absolute;
   top: 12px;
   right: -28px;
+
   background: #ff2b8a;
   color: white;
+
   border: 4px solid #111;
+
   padding: 8px 35px;
+
   transform: rotate(35deg);
+
   font-size: 13px;
 }
 
@@ -201,11 +264,17 @@ button:hover {
 
 .popup {
   position: fixed;
+
   background: white;
+
   border: 5px solid #111;
+
   padding: 18px;
+
   font-size: 22px;
+
   box-shadow: 7px 7px #111;
+
   z-index: 99;
 }
 
@@ -214,6 +283,7 @@ button:hover {
     transform: scale(0.7) rotate(-3deg);
     opacity: 0;
   }
+
   to {
     transform: scale(1) rotate(0);
     opacity: 1;
@@ -221,14 +291,29 @@ button:hover {
 }
 
 @keyframes glitch {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(3px, -3px); }
-  50% { transform: translate(-3px, 3px); }
-  75% { transform: translate(3px, 3px); }
-  100% { transform: translate(0, 0); }
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(3px, -3px);
+  }
+
+  50% {
+    transform: translate(-3px, 3px);
+  }
+
+  75% {
+    transform: translate(3px, 3px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 @media (max-width: 800px) {
+
   main {
     grid-template-columns: 1fr;
   }
@@ -241,4 +326,5 @@ button:hover {
   h1 {
     font-size: 48px;
   }
+
 }
