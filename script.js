@@ -24,6 +24,7 @@ const slogans = [
 ];
 
 imageInput.addEventListener("change", function () {
+
   const file = imageInput.files[0];
 
   if (!file) return;
@@ -35,26 +36,37 @@ imageInput.addEventListener("change", function () {
   };
 
   reader.readAsDataURL(file);
+
 });
 
 generateBtn.addEventListener("click", function () {
+
   createPopCard();
+
 });
 
 massBtn.addEventListener("click", function () {
-  for (let i = 0; i < 12; i++) {
+
+  for (let i = 0; i < 40; i++) {
+
     createPopCard(true);
+
   }
 
   createPopups();
+
   document.body.classList.add("glitch");
 
   setTimeout(function () {
+
     document.body.classList.remove("glitch");
+
   }, 1200);
+
 });
 
 resetBtn.addEventListener("click", function () {
+
   posterArea.innerHTML = `
     <div class="empty-message">
       Upload yourself. Become a product.
@@ -62,28 +74,42 @@ resetBtn.addEventListener("click", function () {
   `;
 
   popupContainer.innerHTML = "";
+
   productCount = 0;
+
 });
 
 function createPopCard(randomMode = false) {
-  const userName = nameInput.value || "UNKNOWN PRODUCT";
-  const userSlogan = sloganInput.value || "Limited Edition Human";
+
+  const userName =
+    nameInput.value || "UNKNOWN PRODUCT";
+
+  const userSlogan =
+    sloganInput.value || "Limited Edition Human";
 
   if (!uploadedImage) {
+
     alert("Please upload an image first.");
+
     return;
+
   }
 
   if (productCount === 0) {
+
     posterArea.innerHTML = "";
+
   }
 
   productCount++;
 
   const card = document.createElement("div");
+
   card.classList.add("pop-card");
 
-  const randomColor = Math.floor(Math.random() * 5) + 1;
+  const randomColor =
+    Math.floor(Math.random() * 5) + 1;
+
   card.classList.add(`color-${randomColor}`);
 
   const stampText = randomMode
@@ -96,17 +122,26 @@ function createPopCard(randomMode = false) {
 
   card.innerHTML = `
     <div class="stamp">${stampText}</div>
-    <img src="${uploadedImage}" alt="Uploaded image">
+
+    <div class="image-wrap">
+      <img src="${uploadedImage}" alt="Uploaded image">
+    </div>
+
     <h3>${userName}</h3>
+
     <p>${userSlogan}</p>
+
     <div class="price-tag">${price}</div>
+
     <div class="barcode"></div>
   `;
 
   posterArea.appendChild(card);
+
 }
 
 function createPopups() {
+
   const popupWords = [
     "BUY",
     "LIKE",
@@ -119,18 +154,64 @@ function createPopups() {
   ];
 
   for (let i = 0; i < 8; i++) {
+
     const popup = document.createElement("div");
+
     popup.classList.add("popup");
 
-    popup.textContent = popupWords[Math.floor(Math.random() * popupWords.length)];
+    popup.textContent =
+      popupWords[Math.floor(Math.random() * popupWords.length)];
 
-    popup.style.left = Math.random() * 75 + "vw";
-    popup.style.top = Math.random() * 75 + "vh";
+    popup.style.left =
+      Math.random() * 75 + "vw";
+
+    popup.style.top =
+      Math.random() * 75 + "vh";
 
     popupContainer.appendChild(popup);
 
     setTimeout(function () {
+
       popup.remove();
+
     }, 2500);
+
   }
+
 }
+
+/* PAGE BECOMES OVERLOADED */
+
+setInterval(function () {
+
+  if (productCount > 8) {
+
+    createPopups();
+
+  }
+
+  if (productCount > 15) {
+
+    const cards =
+      document.querySelectorAll(".pop-card");
+
+    cards.forEach(function(card) {
+
+      if (Math.random() > 0.7) {
+
+        card.style.transform =
+          `rotate(${Math.random() * 10 - 5}deg)`;
+
+      }
+
+    });
+
+  }
+
+  if (productCount > 40) {
+
+    document.body.classList.add("glitch");
+
+  }
+
+}, 1500);
